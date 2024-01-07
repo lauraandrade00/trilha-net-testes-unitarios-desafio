@@ -44,11 +44,13 @@ public class ValidacoesListaTests
         var numeroParaProcurar = 10;
 
         // Act
-
+        bool numeroEstaNaLista = lista.Contains(numeroParaProcurar);
         // Assert
+         Assert.False(numeroEstaNaLista, $"A lista não deve conter o número {numeroParaProcurar}.");
     }
 
     //TODO: Corrigir a anotação [Fact]
+    [Fact]
     public void DeveMultiplicarOsElementosDaListaPor2()
     {
         //TODO: Implementar método de teste
@@ -58,8 +60,19 @@ public class ValidacoesListaTests
         var resultadoEsperado = new List<int> { 10, 14, 16, 18 };
         
         // Act
-
+        var resultadoObtido = MultiplicarPor2(lista);
         // Assert
+        Assert.Equal(resultadoEsperado, resultadoObtido);
+    }
+
+    private List<int> MultiplicarPor2(List<int> lista)
+    {
+        var resultado = new List<int>();
+        foreach (var elemento in lista)
+        {
+            resultado.Add(elemento * 2);
+        }
+        return resultado;
     }
 
     [Fact]
@@ -71,11 +84,31 @@ public class ValidacoesListaTests
         var lista = new List<int> { 5, -1, -8, 9 };
 
         // Act
+        var maiorNumero = EncontrarMaiorNumero(lista);
 
         // Assert
         //TODO: Corrigir o Assert.Equal com base no retorno da chamada ao método
-        Assert.Equal(9, 9);
+        Assert.Equal(9, maiorNumero);
     }
+
+    private int EncontrarMaiorNumero(List<int> lista)
+    {
+        if (lista.Count == 0)
+        {
+            throw new ArgumentException("A lista não pode estar vazia.");
+        }
+
+        int maiorNumero = lista[0];
+        foreach (var numero in lista)
+        {
+            if (numero > maiorNumero)
+            {
+                maiorNumero = numero;
+            }
+        }
+        return maiorNumero;
+    }
+
 
     [Fact]
     public void DeveRetornarOitoNegativoComoMenorNumeroDaLista()
@@ -90,6 +123,6 @@ public class ValidacoesListaTests
 
         // Assert
         //TODO: Corrigir o Assert.Equal com base no retorno da chamada ao método
-        Assert.Equal(-8, -8);
+        Assert.Equal(-8, resultado);
     }
 }
